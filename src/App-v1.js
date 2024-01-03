@@ -9,7 +9,7 @@ const messages = [
 export default function App() {
   return (
     <>
-      {/* <Counter /> */}
+      <Counter />
       <Step />
     </>
   )
@@ -88,43 +88,27 @@ function Step() {
             <div className={step >= 3 ? 'active' : ''}>3</div>
           </div>
 
-          <StepMessage step={step}>{messages[step - 1]}</StepMessage>
+          <p className="message">
+            {/*since the array starts from 0 */}
+            Step {step} : {messages[step - 1]}
+          </p>
 
           <div className="buttons">
-            <Button
+            <button
               style={{ backgroundColor: '#7950f2', color: '#fff' }}
-              event={handlePrevious}
+              onClick={handlePrevious}
             >
-              👈 Previous
-            </Button>
-            <Button
+              Previous
+            </button>
+            <button
               style={{ backgroundColor: '#7950f2', color: '#fff' }}
-              event={handleNext}
+              onClick={handleNext}
             >
-              Next 👉
-            </Button>
+              Next
+            </button>
           </div>
         </div>
       )}
     </>
-  )
-}
-
-function StepMessage({ step, children }) {
-  return (
-    <p className="message">
-      <h3>Step {step}</h3>
-      {children}
-    </p>
-  )
-}
-
-function Button({ style, event, children }) {
-  return (
-    <div className="buttons">
-      <button style={style} onClick={event}>
-        {children}
-      </button>
-    </div>
   )
 }
