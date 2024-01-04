@@ -26,16 +26,19 @@ export default function App() {
   const [showAddFriend, setShowAddFriend] = useState(false)
   const [selectedFriend, setSelectedFriend] = useState(null)
 
+  // add friends
   function handleAddFriend(friend) {
     setFriends((currentFriend) => [...currentFriend, friend])
     setShowAddFriend(false)
   }
 
+  //select friend
   function handleSelectedFriend(friend) {
     setSelectedFriend((curr) => (curr?.id === friend.id ? null : friend))
     setShowAddFriend(null)
   }
 
+  //split the bill
   function handleBillSplit(value) {
     setFriends((friend) =>
       friends.map((friend) =>
@@ -44,7 +47,6 @@ export default function App() {
           : friend
       )
     )
-
     setSelectedFriend(null)
   }
   return (
@@ -55,11 +57,16 @@ export default function App() {
           onSelection={handleSelectedFriend}
           selectedFriend={selectedFriend}
         />
+
+        {/* on click of add friend show the form */}
         {showAddFriend && <FormAddFriend onAddFriend={handleAddFriend} />}
+
         <Button onClick={() => setShowAddFriend((show) => !show)}>
           {showAddFriend ? 'Close' : 'Add Friend'}
         </Button>
       </div>
+
+      {/* on slecting a friend show the billing form */}
       {selectedFriend && (
         <FormSplitBill
           onSplitBill={handleBillSplit}
@@ -86,6 +93,7 @@ function FriendsList({ friends, onSelection, selectedFriend }) {
 }
 
 function Friend({ friend, onSelection, selectedFriend }) {
+  //check which friend is selected
   const isSelected = selectedFriend?.id === friend.id
   return (
     <li className={isSelected ? 'selected' : ''}>
@@ -134,7 +142,6 @@ function FormAddFriend({ onAddFriend }) {
 
     //Generate random ids
     const id = crypto.randomUUID()
-
     const newFriend = {
       id,
       name,
